@@ -1,68 +1,136 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-const Footer = () => {
+export default function Footer() {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmail('');
+  };
+
   return (
-    <footer className="bg-black text-white pt-32 pb-12 px-6 md:px-12 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-zinc-800" />
-      
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-32">
-        <div className="md:col-span-6">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">
-            Ready to build?
-          </h2>
-          <p className="text-zinc-400 text-lg max-w-md mb-8">
-            Let&apos;s create something extraordinary together. Whether it&apos;s a digital experience or a physical space, we&apos;re here to help.
-          </p>
-          <a 
-            href="mailto:hello@mantis.works" 
-            className="inline-block text-xl border-b border-white pb-1 hover:text-zinc-300 hover:border-zinc-300 transition-colors"
-          >
-            hello@mantis.works
-          </a>
-        </div>
+    <footer className="bg-black border-t border-white/5">
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          {/* Brand */}
+          <div className="md:col-span-1">
+            <h3 className="text-2xl font-bold text-white/90 tracking-tight mb-4">
+              FERRARI
+            </h3>
+            <p className="text-xs font-light text-white/40 leading-relaxed">
+              Official Ferrari website. Discover the world of Ferrari: history, racing, models, and more.
+            </p>
+            {/* Social Icons */}
+            <div className="flex gap-4 mt-6">
+              <a href="#" className="w-8 h-8 border border-white/10 flex items-center justify-center hover:border-[#c41e3a] transition-colors group">
+                <span className="text-[10px] text-white/40 group-hover:text-[#c41e3a] transition-colors">IG</span>
+              </a>
+              <a href="#" className="w-8 h-8 border border-white/10 flex items-center justify-center hover:border-[#c41e3a] transition-colors group">
+                <span className="text-[10px] text-white/40 group-hover:text-[#c41e3a] transition-colors">FB</span>
+              </a>
+              <a href="#" className="w-8 h-8 border border-white/10 flex items-center justify-center hover:border-[#c41e3a] transition-colors group">
+                <span className="text-[10px] text-white/40 group-hover:text-[#c41e3a] transition-colors">YT</span>
+              </a>
+              <a href="#" className="w-8 h-8 border border-white/10 flex items-center justify-center hover:border-[#c41e3a] transition-colors group">
+                <span className="text-[10px] text-white/40 group-hover:text-[#c41e3a] transition-colors">X</span>
+              </a>
+            </div>
+          </div>
 
-        <div className="md:col-span-6 grid grid-cols-2 gap-8">
+          {/* Models */}
           <div>
-            <h3 className="text-sm uppercase tracking-widest text-zinc-500 mb-6">Social</h3>
-            <ul className="space-y-4">
-              {['Instagram', 'LinkedIn', 'Twitter', 'Vimeo'].map((social) => (
-                <li key={social}>
-                  <a href="#" className="text-zinc-300 hover:text-white transition-colors">
-                    {social}
+            <h4 className="text-[10px] font-medium text-white/60 tracking-[0.3em] uppercase mb-6">
+              Models
+            </h4>
+            <ul className="space-y-3">
+              {['SF90 Stradale', '296 GTB', '812 Competizione', 'Roma', 'Purosangue'].map((model) => (
+                <li key={model}>
+                  <a href="#" className="text-xs font-light text-white/40 hover:text-white/80 transition-colors">
+                    {model}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Racing */}
           <div>
-            <h3 className="text-sm uppercase tracking-widest text-zinc-500 mb-6">Offices</h3>
-            <ul className="space-y-4 text-zinc-300">
-              <li>New York</li>
-              <li>Los Angeles</li>
-              <li>London</li>
+            <h4 className="text-[10px] font-medium text-white/60 tracking-[0.3em] uppercase mb-6">
+              Racing
+            </h4>
+            <ul className="space-y-3">
+              {['Scuderia Ferrari', 'F1 Team', 'Ferrari Challenge', 'GT Racing', 'Esports'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-xs font-light text-white/40 hover:text-white/80 transition-colors">
+                    {item}
+                  </a>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h4 className="text-[10px] font-medium text-white/60 tracking-[0.3em] uppercase mb-6">
+              Newsletter
+            </h4>
+            <p className="text-xs font-light text-white/40 mb-4">
+              Stay updated with the latest from Ferrari.
+            </p>
+            <form onSubmit={handleSubmit} className="flex">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                className="flex-1 bg-white/5 border border-white/10 px-4 py-2 text-xs text-white/80 placeholder:text-white/20 focus:outline-none focus:border-[#c41e3a]/50 transition-colors"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#c41e3a] text-white text-xs font-medium hover:bg-[#a01830] transition-colors"
+              >
+                Join
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-end border-t border-zinc-900 pt-12">
-        <span className="text-zinc-600 text-sm">
-          © {new Date().getFullYear()} Mantis. All rights reserved.
-        </span>
-        
-        <motion.h1 
-          initial={{ opacity: 0.5 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-[12vw] leading-none font-bold tracking-tighter text-zinc-900 select-none pointer-events-none mt-12 md:mt-0"
-        >
-          MANTIS
-        </motion.h1>
+      {/* Bottom Bar */}
+      <div className="border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            {/* Copyright */}
+            <p className="text-[10px] font-light text-white/30">
+              © 2024 Ferrari S.p.A. All rights reserved.
+            </p>
+
+            {/* Links */}
+            <div className="flex gap-6">
+              {['Privacy Policy', 'Legal Notice', 'Cookie Policy', 'Accessibility'].map((link) => (
+                <a
+                  key={link}
+                  href="#"
+                  className="text-[10px] font-light text-white/30 hover:text-white/60 transition-colors"
+                >
+                  {link}
+                </a>
+              ))}
+            </div>
+
+            {/* Ferrari Logo Mark */}
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 border border-[#c41e3a] rounded-sm flex items-center justify-center">
+                <span className="text-[8px] font-bold text-[#c41e3a]">F</span>
+              </div>
+              <span className="text-[10px] font-light text-white/30 tracking-wider">OFFICIAL</span>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

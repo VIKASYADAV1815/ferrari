@@ -230,167 +230,60 @@ export default function Scene1Section({
           </p>
         </div>
 
-        {/* TOP LEFT - Rich Animated Content */}
+        {/* CENTERED PREMIUM CONTENT - Scene 1 */}
         {isReady && (
           <>
-            {/* Dynamic Model Name - Changes based on scroll */}
-            <div className="absolute top-8 left-24 z-30">
-              <div className="overflow-hidden">
-                <p 
-                  className="text-[14px] font-bold text-white/90 tracking-[0.15em] uppercase transition-all duration-500"
-                  style={{
-                    opacity: displayFrame < 100 ? 1 : 0.3,
-                    transform: `translateY(${displayFrame < 100 ? 0 : -10}px)`
-                  }}
-                >
-                  {displayFrame < 50 ? 'SF90 Stradale' : displayFrame < 150 ? 'Assetto Fiorano' : 'Ferrari F8'}
-                </p>
-              </div>
-              <p className="text-[9px] font-light text-white/40 tracking-wider mt-1">
-                {displayFrame < 100 ? 'Plug-in Hybrid' : displayFrame < 200 ? 'Track Edition' : 'Tributo'}
-              </p>
+            {/* Main Title - Center Top */}
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 text-center">
+              <p className="text-[10px] font-light text-white/40 tracking-[0.5em] uppercase mb-2">Ferrari</p>
+              <h2 className="text-3xl font-bold text-white/90 tracking-tight">SF90 Stradale</h2>
             </div>
 
-            {/* Animated Specs Box */}
-            <div 
-              className="absolute top-24 left-8 z-30 max-w-[180px] transition-all duration-700"
-              style={{
-                opacity: displayFrame < 80 ? 1 : 0,
-                transform: `translateX(${displayFrame < 80 ? 0 : -30}px)`
-              }}
-            >
-              <div className="border-l-2 border-[#c41e3a] pl-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Engine</p>
-                <p className="text-[11px] font-medium text-white/80">V8 Twin-Turbo</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">769 HP + 217 HP Electric</p>
-                <div className="mt-3 flex gap-4">
-                  <div>
-                    <p className="text-[16px] font-bold text-white/90">2.5s</p>
-                    <p className="text-[8px] font-light text-white/30 uppercase">0-100</p>
-                  </div>
-                  <div>
-                    <p className="text-[16px] font-bold text-white/90">340</p>
-                    <p className="text-[8px] font-light text-white/30 uppercase">km/h</p>
-                  </div>
+            {/* Left Side - Fixed Position */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px]">
+              <div className="space-y-4">
+                <div className="border-l-2 border-[#c41e3a] pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Power</p>
+                  <p className="text-[18px] font-bold text-white/90">1,000</p>
+                  <p className="text-[9px] font-light text-white/50">HP Combined</p>
+                </div>
+                <div className="border-l-2 border-white/20 pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">0-100</p>
+                  <p className="text-[18px] font-bold text-white/90">2.5s</p>
                 </div>
               </div>
             </div>
 
-            {/* Second animated content block */}
-            <div 
-              className="absolute top-24 left-8 z-30 max-w-[180px] transition-all duration-700"
-              style={{
-                opacity: displayFrame >= 80 && displayFrame < 160 ? 1 : 0,
-                transform: `translateX(${displayFrame >= 80 && displayFrame < 160 ? 0 : -30}px)`
-              }}
-            >
-              <div className="border-l-2 border-[#c41e3a] pl-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Aerodynamics</p>
-                <p className="text-[11px] font-medium text-white/80">Active Spoiler</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">390kg Downforce @ 250km/h</p>
-                <div className="mt-3">
-                  <p className="text-[16px] font-bold text-white/90">1,570kg</p>
-                  <p className="text-[8px] font-light text-white/30 uppercase">Total Weight</p>
+            {/* Right Side - Fixed Position */}
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px] text-right">
+              <div className="space-y-4">
+                <div className="border-r-2 border-[#c41e3a] pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Top Speed</p>
+                  <p className="text-[18px] font-bold text-white/90">340</p>
+                  <p className="text-[9px] font-light text-white/50">km/h</p>
+                </div>
+                <div className="border-r-2 border-white/20 pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Engine</p>
+                  <p className="text-[14px] font-bold text-white/90">V8 Hybrid</p>
                 </div>
               </div>
             </div>
 
-            {/* Third animated content block */}
-            <div 
-              className="absolute top-24 left-8 z-30 max-w-[180px] transition-all duration-700"
-              style={{
-                opacity: displayFrame >= 160 ? 1 : 0,
-                transform: `translateX(${displayFrame >= 160 ? 0 : -30}px)`
-              }}
-            >
-              <div className="border-l-2 border-[#c41e3a] pl-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Heritage</p>
-                <p className="text-[11px] font-medium text-white/80">Scuderia Ferrari</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">Since 1929</p>
-                <div className="mt-3">
-                  <p className="text-[16px] font-bold text-white/90">16x</p>
-                  <p className="text-[8px] font-light text-white/30 uppercase">Constructor Championships</p>
-                </div>
+            {/* Center Bottom Stats */}
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-8">
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Downforce</p>
+                <p className="text-[16px] font-bold text-white/90">390kg</p>
               </div>
-            </div>
-          </>
-        )}
-
-        {/* TOP RIGHT - Rich Animated Content */}
-        {isReady && (
-          <>
-            {/* Dynamic Performance Stats */}
-            <div className="absolute top-8 right-24 z-30 text-right">
-              <div className="overflow-hidden">
-                <p 
-                  className="text-[14px] font-bold text-white/90 tracking-[0.15em] uppercase transition-all duration-500"
-                  style={{
-                    opacity: displayFrame < 150 ? 1 : 0.3,
-                    transform: `translateY(${displayFrame < 150 ? 0 : -10}px)`
-                  }}
-                >
-                  {displayFrame < 75 ? '1,000 HP' : displayFrame < 175 ? 'Track Mode' : 'Race Ready'}
-                </p>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Weight</p>
+                <p className="text-[16px] font-bold text-white/90">1,570kg</p>
               </div>
-              <p className="text-[9px] font-light text-white/40 tracking-wider mt-1">
-                {displayFrame < 75 ? 'Combined Output' : displayFrame < 175 ? 'Maximum Attack' : 'Fiorano Circuit'}
-              </p>
-            </div>
-
-            {/* Right side animated content blocks */}
-            <div 
-              className="absolute top-24 right-8 z-30 max-w-[180px] text-right transition-all duration-700"
-              style={{
-                opacity: displayFrame < 100 ? 1 : 0,
-                transform: `translateX(${displayFrame < 100 ? 0 : 30}px)`
-              }}
-            >
-              <div className="border-r-2 border-[#c41e3a] pr-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Transmission</p>
-                <p className="text-[11px] font-medium text-white/80">8-Speed DCT</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">Dual-Clutch</p>
-                <div className="mt-3 flex justify-end gap-4">
-                  <div>
-                    <p className="text-[16px] font-bold text-white/90">RWD</p>
-                    <p className="text-[8px] font-light text-white/30 uppercase">+ eAWD</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div 
-              className="absolute top-24 right-8 z-30 max-w-[180px] text-right transition-all duration-700"
-              style={{
-                opacity: displayFrame >= 100 && displayFrame < 200 ? 1 : 0,
-                transform: `translateX(${displayFrame >= 100 && displayFrame < 200 ? 0 : 30}px)`
-              }}
-            >
-              <div className="border-r-2 border-[#c41e3a] pr-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Chassis</p>
-                <p className="text-[11px] font-medium text-white/80">Carbon Fiber</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">Aluminum Structure</p>
-                <div className="mt-3">
-                  <p className="text-[16px] font-bold text-white/90">4WD</p>
-                  <p className="text-[8px] font-light text-white/30 uppercase">eSSC Control</p>
-                </div>
-              </div>
-            </div>
-
-            <div 
-              className="absolute top-24 right-8 z-30 max-w-[180px] text-right transition-all duration-700"
-              style={{
-                opacity: displayFrame >= 200 ? 1 : 0,
-                transform: `translateX(${displayFrame >= 200 ? 0 : 30}px)`
-              }}
-            >
-              <div className="border-r-2 border-[#c41e3a] pr-4">
-                <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-2">Braking</p>
-                <p className="text-[11px] font-medium text-white/80">Carbon Ceramic</p>
-                <p className="text-[10px] font-light text-white/50 mt-1">398mm Front Discs</p>
-                <div className="mt-3">
-                  <p className="text-[16px] font-bold text-white/90">29.5m</p>
-                  <p className="text-[8px] font-light text-white/30 uppercase">100-0 km/h</p>
-                </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Drive</p>
+                <p className="text-[16px] font-bold text-white/90">AWD</p>
               </div>
             </div>
           </>

@@ -6,6 +6,7 @@ import Scene1Section from "./sections/Scene1Section";
 import Scene2Section from "./sections/Scene2Section";
 import Scene3Section from "./sections/Scene3Section";
 import Preloader from "./components/Preloader";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +25,7 @@ export default function Home() {
         <Scene1Section />
         <Scene2Section />
         <Scene3Section />
+        <Footer />
       </div>
     </>
   );

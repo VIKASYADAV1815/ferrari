@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -17,6 +17,18 @@ export default function HeroVideoPlayer({ onProgressUpdate, sectionRef }: HeroVi
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const hasStartedRef = useRef(false);
   const hasEndedRef = useRef(false);
+  const userInteractedRef = useRef(false);
+
+  // Handle user interaction to enable video
+  const handleUserInteraction = useCallback(() => {
+    if (!userInteractedRef.current) {
+      userInteractedRef.current = true;
+      const video = videoRef.current;
+      if (video && hasStartedRef.current && video.paused) {
+        video.play().catch(() => {});
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -55,10 +67,17 @@ export default function HeroVideoPlayer({ onProgressUpdate, sectionRef }: HeroVi
           // 20%+: Start video playback (only once, smooth transition)
           else if (scrollProgress >= 0.2 && !hasStartedRef.current && !hasEndedRef.current) {
             hasStartedRef.current = true;
-            video.play().catch(() => {
-              // Handle autoplay restriction
-              console.log('Video play failed, user interaction needed');
-            });
+            // Try to play with user interaction workaround
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // If autoplay blocked, try muted play
+                video.muted = true;
+                video.play().catch(() => {
+                  console.log('Video play failed');
+                });
+              });
+            }
           }
         },
       });
@@ -80,14 +99,23 @@ export default function HeroVideoPlayer({ onProgressUpdate, sectionRef }: HeroVi
       handleLoadedMetadata();
     }
 
+    // Add interaction listeners
+    const handleInteraction = () => handleUserInteraction();
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+    window.addEventListener('scroll', handleInteraction, { once: true });
+
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
       video.removeEventListener('ended', handleEnded);
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction);
       if (scrollTriggerRef.current) {
         scrollTriggerRef.current.kill();
       }
     };
-  }, [onProgressUpdate, sectionRef]);
+  }, [onProgressUpdate, sectionRef, handleUserInteraction]);
 
   return (
     <div className="absolute inset-0 z-0">

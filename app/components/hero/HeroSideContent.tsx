@@ -117,45 +117,48 @@ export default function HeroSideContent({ scrollProgress }: HeroSideContentProps
 
   return (
     <>
-      {/* Left Side - Premium Dynamic Specs */}
+      {/* Left Side - Premium Dynamic Specs - Scene Style */}
       <div
         ref={leftPanelRef}
-        className="absolute left-8 md:left-16 top-1/2 -translate-y-1/2 z-20 hidden md:block"
+        className="absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden md:block max-w-[140px]"
       >
-        <div className="space-y-2">
-          <div className="text-left transition-all duration-700 ease-out">
-            <p className="text-[9px] font-light text-white/40 tracking-[0.4em] uppercase mb-3">
+        <div className="space-y-4">
+          <div className="border-l-2 border-[#c41e3a] pl-3 transition-all duration-700 ease-out">
+            <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
               {leftContent.label}
             </p>
-            <p className="text-4xl font-light text-white/90 tracking-tight" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+            <p className="text-[18px] font-bold text-white/90">
               {leftContent.value}
-              <span className="text-lg text-white/50 ml-2 font-light">{leftContent.unit}</span>
             </p>
-            <p className="text-[10px] font-light text-white/30 tracking-wider mt-2">
-              {leftContent.subtext}
-            </p>
+            <p className="text-[9px] font-light text-white/50">{leftContent.unit}</p>
+          </div>
+          <div className="border-l-2 border-white/20 pl-3">
+            <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">Detail</p>
+            <p className="text-[9px] font-light text-white/50">{leftContent.subtext}</p>
           </div>
         </div>
       </div>
 
-      {/* Right Side - Premium Dynamic Description */}
+      {/* Right Side - Premium Dynamic Description - Scene Style */}
       <div
         ref={rightPanelRef}
-        className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden md:block max-w-[280px]"
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden md:block max-w-[140px] text-right"
       >
-        <div className="text-right transition-all duration-700 ease-out">
-          <div className="flex items-center justify-end gap-3 mb-3">
-            <div className="h-px w-8 bg-white/20" />
-            <p className="text-[9px] font-light text-white/40 tracking-[0.4em] uppercase">
+        <div className="space-y-4">
+          <div className="border-r-2 border-[#c41e3a] pr-3 transition-all duration-700 ease-out">
+            <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
               {rightContent.subtitle}
             </p>
+            <p className="text-[16px] font-bold text-white/90">
+              {rightContent.title}
+            </p>
           </div>
-          <p className="text-xl font-normal text-white/80 tracking-wide mb-3" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>
-            {rightContent.title}
-          </p>
-          <p className="text-xs font-light text-white/40 leading-relaxed">
-            {rightContent.description}
-          </p>
+          <div className="border-r-2 border-white/20 pr-3">
+            <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">Info</p>
+            <p className="text-[9px] font-light text-white/50 leading-relaxed">
+              {rightContent.description}
+            </p>
+          </div>
         </div>
       </div>
 

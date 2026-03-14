@@ -1,0 +1,104 @@
+[00:00:02.594] Server  LOG     ✓ Ready in 1817ms
+[00:00:05.838] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
+                          <body
+                            className="playfair_display_15b1a3c7-module__fjGYMa__variable inter_b303bcd1-module__4hez4..."
+                            style={{
++                             fontFamily: "var(--font-inter), system-ui, sans-serif"
+-                             font-family: "var(--font-inter), system-ui, sans-serif"
+                            }}
+-                           cz-shortcut-listen="true"
+                          >
+                  ...
+
+[00:00:27.082] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
+                          <body
+                            className="playfair_display_15b1a3c7-module__fjGYMa__variable inter_b303bcd1-module__4hez4..."
+                            style={{
++                             fontFamily: "var(--font-inter), system-ui, sans-serif"
+-                             font-family: "var(--font-inter), system-ui, sans-serif"
+                            }}
+                          >
+                  ...
+
+[00:00:37.702] Browser LOG     Audio play failed
+[00:00:48.734] Server  LOG     ✓ Compiled in 3.4s
+[00:01:16.673] Server  LOG     ✓ Compiled in 1304ms
+[00:01:35.474] Server  LOG     ✓ Compiled in 145ms
+[00:01:45.516] Server  LOG     ✓ Compiled in 1036ms
+[00:01:45.746] Browser ERROR   The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+
+Previous: %s
+Incoming: %s useEffect [(progress)=>{
+        setScrollProgress(progress);
+    }, [object Object]] [(progress)=>{
+        setScrollProgress(progress);
+    }, [object Object], ()=>{
+            if (!userInteractedRef.current) {
+                userInteractedRef.current = true;
+                const video = videoRef.current;
+                if (video && hasStartedRef.current && video.paused) {
+                    video.play().catch({
+                        "HeroVideoPlayer.useCallback[handleUserInteraction]": ()=>{}
+                    }["HeroVideoPlayer.useCallback[handleUserInteraction]"]);
+                }
+            }
+        }]
+[00:02:48.657] Server  LOG     ✓ Compiled in 192ms

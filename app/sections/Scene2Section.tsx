@@ -225,30 +225,70 @@ export default function Scene2Section({
           }}
         />
 
+        {/* CENTERED PREMIUM CONTENT - Scene 2 */}
+        {isReady && (
+          <>
+            {/* Main Title - Center Top */}
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 text-center">
+              <p className="text-[10px] font-light text-white/40 tracking-[0.5em] uppercase mb-2">Dynamic</p>
+              <h2 className="text-3xl font-bold text-white/90 tracking-tight">Motion Study</h2>
+            </div>
+
+            {/* Left Side - Fixed Position */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px]">
+              <div className="space-y-4">
+                <div className="border-l-2 border-[#c41e3a] pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Aerodynamics</p>
+                  <p className="text-[16px] font-bold text-white/90">Active</p>
+                  <p className="text-[9px] font-light text-white/50">Rear Spoiler</p>
+                </div>
+                <div className="border-l-2 border-white/20 pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Drag</p>
+                  <p className="text-[18px] font-bold text-white/90">0.32</p>
+                  <p className="text-[9px] font-light text-white/50">Cd Coefficient</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Fixed Position */}
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px] text-right">
+              <div className="space-y-4">
+                <div className="border-r-2 border-[#c41e3a] pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Cooling</p>
+                  <p className="text-[16px] font-bold text-white/90">Advanced</p>
+                  <p className="text-[9px] font-light text-white/50">Thermal Mgmt</p>
+                </div>
+                <div className="border-r-2 border-white/20 pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Airflow</p>
+                  <p className="text-[18px] font-bold text-white/90">Optimized</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Bottom Stats */}
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-8">
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Front Lift</p>
+                <p className="text-[16px] font-bold text-white/90">-140kg</p>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Rear Down</p>
+                <p className="text-[16px] font-bold text-white/90">+530kg</p>
+              </div>
+              <div className="w-px h-10 bg-white/10" />
+              <div className="text-center">
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Efficiency</p>
+                <p className="text-[16px] font-bold text-white/90">98%</p>
+              </div>
+            </div>
+          </>
+        )}
+
         {/* Scene Label */}
         <div className="absolute top-8 left-8 z-20">
           <p className="text-[10px] font-light text-white/40 tracking-[0.4em] uppercase">
             Scene 02
-          </p>
-        </div>
-
-        {/* Top Left Premium Text */}
-        <div className="absolute top-8 left-24 z-20">
-          <p className="text-[11px] font-medium text-white/70 tracking-[0.2em] uppercase">
-            Aerodynamics
-          </p>
-          <p className="text-[9px] font-light text-white/30 tracking-wider mt-1">
-            Precision Engineering
-          </p>
-        </div>
-
-        {/* Top Right Premium Text */}
-        <div className="absolute top-8 right-24 z-20 text-right">
-          <p className="text-[11px] font-medium text-white/70 tracking-[0.2em] uppercase">
-            Performance
-          </p>
-          <p className="text-[9px] font-light text-white/30 tracking-wider mt-1">
-            0-100 km/h in 2.5s
           </p>
         </div>
 

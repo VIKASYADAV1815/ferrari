@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/project/temp3/app/components/SmoothScroll.tsx"],"sourcesContent":["'use client';\n\n// Lenis is now handled in HeroVideo component for scroll-synced video\n// This component is kept for compatibility but does not initialize Lenis\nexport default function SmoothScroll() {\n  return null;\n}\n"],"names":[],"mappings":";;;;AAAA;AAIe,SAAS;IACtB,OAAO;AACT;KAFwB"}}]
+}

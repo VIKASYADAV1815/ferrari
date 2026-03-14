@@ -21,6 +21,7 @@ export default function Scene3Section({
   const [displayFrame, setDisplayFrame] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
+  const frameRef = useRef(0);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const rafRef = useRef<number | null>(null);
   const targetFrameRef = useRef(0);
@@ -63,22 +64,29 @@ export default function Scene3Section({
     }
   }, [frameCount, framePath]);
 
-  // Animation loop
+  // Animation loop - optimized
   const animateFrame = useCallback(() => {
-    const diff = targetFrameRef.current - currentFrame;
+    const diff = targetFrameRef.current - frameRef.current;
     
-    if (Math.abs(diff) > 0.1) {
-      const newFrame = lerp(currentFrame, targetFrameRef.current, 0.1);
+    if (Math.abs(diff) > 0.5) {
+      const newFrame = lerp(frameRef.current, targetFrameRef.current, 0.12);
+      frameRef.current = newFrame;
       setCurrentFrame(newFrame);
       setDisplayFrame(Math.round(newFrame));
-      preloadImages(Math.round(newFrame));
+      
+      // Preload less frequently
+      if (Math.round(newFrame) % 5 === 0) {
+        preloadImages(Math.round(newFrame));
+      }
+      
       rafRef.current = requestAnimationFrame(animateFrame);
     } else {
+      frameRef.current = targetFrameRef.current;
       setCurrentFrame(targetFrameRef.current);
       setDisplayFrame(Math.round(targetFrameRef.current));
       rafRef.current = null;
     }
-  }, [currentFrame, preloadImages]);
+  }, [preloadImages]);
 
   // Initialize - optimized
   useEffect(() => {
@@ -185,7 +193,7 @@ export default function Scene3Section({
   return (
     <section
       ref={sectionRef}
-      className="relative h-[500vh] bg-black"
+      className="relative h-[400vh] bg-black"
     >
       {/* Sticky Container */}
       <div ref={containerRef} className="sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center">
@@ -214,26 +222,26 @@ export default function Scene3Section({
           style={{ opacity: isReady ? 1 : 0, transition: 'opacity 0.3s ease' }}
         />
 
-        {/* Subtle Grain Overlay */}
+        {/* Very Subtle Grain Overlay */}
         <div 
-          className="absolute inset-0 z-10 pointer-events-none opacity-[0.04]"
+          className="absolute inset-0 z-10 pointer-events-none opacity-[0.02]"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
           }}
         />
 
-        {/* Strong Vignette Effect */}
+        {/* Lighter Vignette Effect */}
         <div 
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.95) 100%)',
+            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.7) 100%)',
           }}
         />
 
-        {/* Side Vignette Darkening */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/80 to-transparent z-10 pointer-events-none" />
+        {/* Side Vignette - Lighter */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black/60 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/60 to-transparent z-10 pointer-events-none" />
 
         {/* Scene Label */}
         <div className="absolute top-8 left-8 z-30">
@@ -242,139 +250,62 @@ export default function Scene3Section({
           </p>
         </div>
 
-        {/* Top Left - Model Info */}
-        <div className="absolute top-8 left-24 z-30">
-          <p className="text-[12px] font-semibold text-white/80 tracking-[0.15em] uppercase">
-            T.50
-          </p>
-          <p className="text-[9px] font-light text-white/40 tracking-wider mt-1">
-            Gordon Murray Automotive
-          </p>
-        </div>
-
-        {/* Top Right - Specs */}
-        <div className="absolute top-8 right-24 z-30 text-right">
-          <p className="text-[12px] font-semibold text-white/80 tracking-[0.15em] uppercase">
-            V12 NA
-          </p>
-          <p className="text-[9px] font-light text-white/40 tracking-wider mt-1">
-            11,500 RPM Redline
-          </p>
-        </div>
-
-        {/* LEFT SIDE CONTENT - First 80 frames */}
-        {isReady && showContent && (
+        {/* CENTERED PREMIUM CONTENT - Scene 3 */}
+        {isReady && (
           <>
-            {/* Left Side - Technical Details */}
-            <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 max-w-[200px]">
-              <div className="space-y-6">
-                {/* Engine Spec */}
-                <div className="border-l-2 border-[#c41e3a]/60 pl-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Powertrain
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    3.9L V12
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1">
-                    Naturally Aspirated
-                  </p>
-                  <p className="text-[10px] font-light text-white/50">
-                    654 HP @ 11,500 RPM
-                  </p>
-                </div>
+            {/* Main Title - Center Top */}
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 text-center">
+              <p className="text-[10px] font-light text-white/40 tracking-[0.5em] uppercase mb-2">Gordon Murray</p>
+              <h2 className="text-3xl font-bold text-white/90 tracking-tight">T.50</h2>
+            </div>
 
-                {/* Fan System */}
-                <div className="border-l-2 border-white/20 pl-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Aerodynamics
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    Rear Fan
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1">
-                    Ground Effect System
-                  </p>
-                  <p className="text-[10px] font-light text-white/50">
-                    16,000 RPM Fan Speed
-                  </p>
+            {/* Left Side - Fixed Position */}
+            <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px]">
+              <div className="space-y-4">
+                <div className="border-l-2 border-[#c41e3a] pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Engine</p>
+                  <p className="text-[16px] font-bold text-white/90">V12</p>
+                  <p className="text-[9px] font-light text-white/50">11,500 RPM</p>
                 </div>
-
-                {/* Weight */}
-                <div className="border-l-2 border-white/20 pl-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Weight
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    986 KG
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1">
-                    Lightest V12 Hypercar
-                  </p>
+                <div className="border-l-2 border-white/20 pl-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Power</p>
+                  <p className="text-[18px] font-bold text-white/90">654</p>
+                  <p className="text-[9px] font-light text-white/50">HP Natural</p>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT SIDE CONTENT - Design Philosophy */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2 z-30 max-w-[200px] text-right">
-              <div className="space-y-6">
-                {/* Design Philosophy */}
-                <div className="border-r-2 border-[#c41e3a]/60 pr-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Philosophy
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    Form Follows Function
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1 leading-relaxed">
-                    Every curve engineered for maximum downforce and minimal drag
-                  </p>
+            {/* Right Side - Fixed Position */}
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 z-30 max-w-[140px] text-right">
+              <div className="space-y-4">
+                <div className="border-r-2 border-[#c41e3a] pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Weight</p>
+                  <p className="text-[18px] font-bold text-white/90">986</p>
+                  <p className="text-[9px] font-light text-white/50">kg Lightest</p>
                 </div>
-
-                {/* Materials */}
-                <div className="border-r-2 border-white/20 pr-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Construction
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    Carbon Fiber
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1">
-                    Titanium Exhaust
-                  </p>
-                  <p className="text-[10px] font-light text-white/50">
-                    Aluminum Suspension
-                  </p>
-                </div>
-
-                {/* Production */}
-                <div className="border-r-2 border-white/20 pr-4">
-                  <p className="text-[9px] font-light text-white/40 tracking-[0.3em] uppercase mb-1">
-                    Exclusivity
-                  </p>
-                  <p className="text-[13px] font-medium text-white/90 tracking-wide">
-                    100 Units
-                  </p>
-                  <p className="text-[10px] font-light text-white/50 mt-1">
-                    Hand-built in Surrey
-                  </p>
+                <div className="border-r-2 border-white/20 pr-3">
+                  <p className="text-[8px] font-light text-white/40 tracking-[0.3em] uppercase">Fan</p>
+                  <p className="text-[16px] font-bold text-white/90">16k</p>
+                  <p className="text-[9px] font-light text-white/50">RPM Active</p>
                 </div>
               </div>
             </div>
 
-            {/* Center Bottom - Key Stats */}
-            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-12">
+            {/* Center Bottom Stats */}
+            <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-8">
               <div className="text-center">
-                <p className="text-[24px] font-bold text-white/90 tracking-tight">2.8s</p>
-                <p className="text-[9px] font-light text-white/40 tracking-wider uppercase mt-1">0-100 km/h</p>
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">0-100</p>
+                <p className="text-[16px] font-bold text-white/90">2.8s</p>
               </div>
+              <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
-                <p className="text-[24px] font-bold text-white/90 tracking-tight">350+</p>
-                <p className="text-[9px] font-light text-white/40 tracking-wider uppercase mt-1">Top Speed</p>
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Top Speed</p>
+                <p className="text-[16px] font-bold text-white/90">350+</p>
               </div>
+              <div className="w-px h-10 bg-white/10" />
               <div className="text-center">
-                <p className="text-[24px] font-bold text-white/90 tracking-tight">1,500KG</p>
-                <p className="text-[9px] font-light text-white/40 tracking-wider uppercase mt-1">Downforce</p>
+                <p className="text-[11px] font-light text-white/40 tracking-wider uppercase">Downforce</p>
+                <p className="text-[16px] font-bold text-white/90">1,500</p>
               </div>
             </div>
           </>
